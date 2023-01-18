@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:controls="clr-namespace:DigiFamily.Views.Controls"
+             xmlns:helpers="clr-namespace:DigiFamily.Helpers.Utils"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" 
+             xmlns:imageControl="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin" 
+             xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls" 
+             xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls" xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+             x:Class="DigiFamily.Views.HomePage"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             Style="{StaticResource ContainerBackgroundColor}">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand" Style="{StaticResource DefalutPadding}">
+            <!--<Grid RowSpacing="0" Padding="0" VerticalOptions="Start">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout Padding="0"
+                             Grid.Row="0"
+                             VerticalOptions="CenterAndExpand">
+                    <controls:StandardEntry x:Name="UsernameEntry"
+                                            Keyboard="Email"
+                                            Placeholder="Search"
+                                            Text="{Binding SearchTxt}"    
+                                            IsReadOnly="{Binding IsBusy}"
+                                            Style="{StaticResource EntryBorderStyle}">
+                    </controls:StandardEntry>
+                </StackLayout>
+                <ImageButton x:Name="usernameIcon"
+                             Grid.Row="0"
+                             Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.AccountSearch},Color={StaticResource Primary},Size=25}"
+                             Style="{StaticResource InputIconStyle}"/>
+            </Grid>-->
+            <Button Text="Add" 
+                    ContentLayout="Right,1"
+                    HorizontalOptions="End"
+                    Command="{Binding AddCommand}"
+                    Style="{StaticResource DefaultButton}"
+                    ImageSource="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.AccountPlus},Color=White,Size=20}"/>
+            <telerikPrimitives:RadExpander BorderColor="{StaticResource Primary}"
+                                           BorderThickness="1"
+                                           IsExpanded="True"
+                                           Margin="0,5,0,5">
+                <telerikPrimitives:RadExpander.Header>
+                    <telerikPrimitives:ExpanderHeader IndicatorText="&#x203A;"                   
+                                                      IndicatorColor="White"
+                                                      IndicatorFontSize="30"
+                                                      IndicatorLocation="End"
+                                                      BackgroundColor="{StaticResource Primary}"
+                                                      IndicatorAnimationDuration="1000"
+                                                      BorderColor="{StaticResource Primary}"
+                                                      BorderThickness="1"
+                                                      CornerRadius="10">
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Crown},Color=White,Size=30}" 
+                                         BackgroundColor="Transparent"/>
+                            <Label Text="Family Head"
+                                   VerticalTextAlignment="Center"
+                                   Style="{StaticResource PrimaryText}" />
+                        </StackLayout>
+                    </telerikPrimitives:ExpanderHeader>
+                </telerikPrimitives:RadExpander.Header>
+                <telerikPrimitives:RadExpander.Content>
+                    <StackLayout Margin="10, 15, 10, 15"
+                                 Orientation="Horizontal">
+                        <imageControl:CircleImage Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Account},Color=White,Size=40}"
+                                                  BorderColor= "White"
+                                                  BorderThickness="2"
+                                                  WidthRequest="30"
+                                                  HeightRequest="30"
+                                                  Aspect="AspectFill"
+                                                  HorizontalOptions="Center"
+                                                  VerticalOptions="Center"/>
+                        <Label Text="Sasindran"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding FamilyHeadCommand}"
+                                                  NumberOfTapsRequired="1" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </telerikPrimitives:RadExpander.Content>
+            </telerikPrimitives:RadExpander>
+            <telerikPrimitives:RadExpander BorderColor="{StaticResource Primary}"
+                                           BorderThickness="1"
+                                           Margin="0,5,0,10">
+                <telerikPrimitives:RadExpander.Header>
+                    <telerikPrimitives:ExpanderHeader IndicatorText="&#x203A;"                   
+                                                      IndicatorColor="White"
+                                                      IndicatorFontSize="30"
+                                                      IndicatorLocation="End"
+                                                      BackgroundColor="{StaticResource Primary}"
+                                                      IndicatorAnimationDuration="1000"
+                                                      BorderColor="{StaticResource Primary}"
+                                                      BorderThickness="1"
+                                                      CornerRadius="10">
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.AccountGroup},Color=White,Size=30}"
+                                         BackgroundColor="Transparent"/>
+                            <Label Text="Family Memebers"
+                                   VerticalTextAlignment="Center"
+                                   Style="{StaticResource PrimaryText}" />
+                        </StackLayout>
+                    </telerikPrimitives:ExpanderHeader>
+                </telerikPrimitives:RadExpander.Header>
+                <telerikPrimitives:RadExpander.Content>
+                    <telerikDataControls:RadListView Margin="0, 5, 0, 0" 
+                                                     x:Name="listView">
+                        <telerikDataControls:RadListView.Commands>
+                            <telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding UserTapCommand}" />
+                        </telerikDataControls:RadListView.Commands>
+                        <telerikDataControls:RadListView.ItemStyle>
+                            <telerikListView:ListViewItemStyle BorderWidth="2"
+                                                               BorderLocation="Bottom"
+                                                               BorderColor="{StaticResource Primary}" />
+                        </telerikDataControls:RadListView.ItemStyle>
+                        <telerikDataControls:RadListView.SelectedItemStyle>
+                            <telerikListView:ListViewItemStyle BorderWidth="2"
+                                                               BorderLocation="Bottom"
+                                                               BorderColor="{StaticResource Primary}" />
+                        </telerikDataControls:RadListView.SelectedItemStyle>
+                        <telerikDataControls:RadListView.PressedItemStyle>
+                            <telerikListView:ListViewItemStyle BorderWidth="2"
+                                                               BorderLocation="Bottom"
+                                                               BorderColor="{StaticResource Primary}" />
+                        </telerikDataControls:RadListView.PressedItemStyle>
+                        <telerikDataControls:RadListView.ItemTemplate>
+                            <DataTemplate>
+                                <telerikListView:ListViewTemplateCell>
+                                    <telerikListView:ListViewTemplateCell.View>
+                                        <StackLayout Margin="10, 10, 10, 10"
+                                                     Orientation="Horizontal">
+                                            <imageControl:CircleImage Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Account},Color=White,Size=40}"
+                                                                      BorderColor= "White"
+                                                                      BorderThickness="2"
+                                                                      WidthRequest="30"
+                                                                      HeightRequest="30"
+                                                                      Aspect="AspectFill"
+                                                                      HorizontalOptions="Center"
+                                                                      VerticalOptions="Center"/>
+                                            <Label Text="{Binding}"
+                                                   TextColor="White"
+                                                   FontAttributes="Bold"
+                                                   FontSize="Medium"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center" />
+                                        </StackLayout>
+                                    </telerikListView:ListViewTemplateCell.View>
+                                </telerikListView:ListViewTemplateCell>
+                            </DataTemplate>
+                        </telerikDataControls:RadListView.ItemTemplate>
+                    </telerikDataControls:RadListView>
+                </telerikPrimitives:RadExpander.Content>
+            </telerikPrimitives:RadExpander>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

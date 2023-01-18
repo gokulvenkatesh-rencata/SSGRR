@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             x:Class="DigiFamily.Views.UserDetailsPage"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             Style="{StaticResource ContainerBackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource DefalutPadding}">
+            <ScrollView VerticalOptions="StartAndExpand">
+            </ScrollView>
+            <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="0,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout VerticalOptions="End" 
+                                 HorizontalOptions="Center" 
+                                 Orientation="Horizontal" 
+                                 IsVisible="{Binding IsBusy}"
+                                 Grid.Row="0"
+                                 Grid.ColumnSpan="2">
+                        <ActivityIndicator IsRunning="True" 
+                                           Color="{StaticResource Primary}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+                        <Label Text="Loading..." 
+                               VerticalTextAlignment="Center" 
+                               HorizontalOptions="Center" 
+                               Style="{StaticResource TextColorStyle}"/>
+                    </StackLayout>
+                    <Label Grid.Row="1"
+                           Grid.Column="0" 
+                           HorizontalOptions="Start" 
+                           VerticalOptions="Center" 
+                           Text="Cancel" 
+                           IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                           Style="{StaticResource LinkText}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackPageCommand}"
+                                                  NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Button Grid.Row="1"
+                            Grid.Column="1" 
+                            HorizontalOptions="End" 
+                            VerticalOptions="Center" 
+                            Text="{Binding ButtonCaption}" 
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                            Command="{Binding SubmitCommand}" 
+                            Style="{StaticResource DefaultButton}"/>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

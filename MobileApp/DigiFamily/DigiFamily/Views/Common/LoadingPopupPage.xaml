@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+           xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+           xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+           x:Class="DigiFamily.Views.Common.LoadingPopupPage"
+           Size="100,100"
+           BackgroundColor="Transparent"
+           IsLightDismissEnabled="False">
+    <StackLayout VerticalOptions="Center" BackgroundColor="Transparent">
+        <telerikPrimitives:RadBusyIndicator x:Name="BusyIndicator"
+                                            AnimationType="Animation9"
+                                            AnimationContentColor="#2374FF"
+                                            AnimationContentHeightRequest="100"
+                                            AnimationContentWidthRequest="100"  
+                                            IsBusy="True"
+                                            VerticalOptions="Center"
+                                            BackgroundColor="Transparent">
+            <telerikPrimitives:RadBusyIndicator.Content>
+                <Label Text=" " TextColor="Transparent"/>
+            </telerikPrimitives:RadBusyIndicator.Content>
+        </telerikPrimitives:RadBusyIndicator>
+    </StackLayout>
+</xct:Popup>

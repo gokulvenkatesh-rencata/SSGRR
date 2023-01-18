@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:controls="clr-namespace:DigiFamily.Views.Controls"
+             xmlns:helpers="clr-namespace:DigiFamily.Helpers.Utils"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" 
+             xmlns:checkBoxComamnds="clr-namespace:Telerik.XamarinForms.Primitives.CheckBox.Commands;assembly=Telerik.XamarinForms.Primitives" 
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="DigiFamily.Views.RegistrationPage"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             Style="{StaticResource ContainerBackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource DefalutPadding}">
+            <ScrollView VerticalOptions="StartAndExpand">
+                <!--<Label Padding="0" Text="Welcome!" Style="{StaticResource PrimaryText}" VerticalOptions="Start"/>-->
+                <!--<Image Source="icon_splash.png" WidthRequest="100" HeightRequest="50" VerticalOptions="Start"/>-->
+                <Grid RowSpacing="5" Padding="0,0,0,0" VerticalOptions="StartAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0" Padding="0,5">
+                        <controls:StandardEntry x:Name="UsernameEntry"
+                                                Keyboard="Email"
+                                                Placeholder="Username/Email"
+                                                Text="{Binding Email}"    
+                                                IsReadOnly="{Binding IsBusy}">
+                            <controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsEmailValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsEmailValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="usernameIcon"
+                                 Grid.Row="0"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Email},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                    <StackLayout Grid.Row="1" Padding="0,5">
+                        <controls:StandardEntry x:Name="FirstnameEntry"
+                                                Keyboard="Text"
+                                                Placeholder="Firstname"
+                                                Text="{Binding Firstname}"    
+                                                IsReadOnly="{Binding IsBusy}">
+                            <controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsFirstnameValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsFirstnameValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="firstnameIcon"
+                                 Grid.Row="1"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.AccountArrowLeft},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                    <StackLayout Grid.Row="2" Padding="0,5">
+                        <controls:StandardEntry x:Name="LastnameEntry"
+                                                Keyboard="Text"
+                                                Placeholder="Lastname"
+                                                Text="{Binding Lastname}"    
+                                                IsReadOnly="{Binding IsBusy}"
+                                                Style="{StaticResource EntryBorderStyle}">
+                            <!--<controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsLastnameValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsLastnameValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>-->
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="lastameIcon"
+                                 Grid.Row="2"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.AccountArrowRight},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                    <StackLayout Grid.Row="3" Padding="0,5">
+                        <controls:StandardEntry x:Name="PhoneEntry"
+                                                Keyboard="Telephone"
+                                                Placeholder="Phone #"
+                                                Text="{Binding Phone}"
+                                                MaxLength="11"
+                                                IsReadOnly="{Binding IsBusy}">
+                            <controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsPhoneValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsPhoneValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>
+                            <controls:StandardEntry.Behaviors>
+                                <xct:MaskedBehavior Mask="AAAAA AAAAA" 
+                                                    UnMaskedCharacter="A" />
+                            </controls:StandardEntry.Behaviors>
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="phoneIcon"
+                                 Grid.Row="3"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Phone},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                    <StackLayout Grid.Row="4" Padding="0,5">
+                        <controls:StandardEntry x:Name="PasswordEntry"
+                                                Keyboard="Default"
+                                                Placeholder="Password"
+                                                Text="{Binding Password}"    
+                                                IsPassword="True"
+                                                IsReadOnly="{Binding IsBusy}">
+                            <controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsPasswordValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsPasswordValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="passwordEyeIcon"
+                                 Grid.Row="4"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Eye},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                 Clicked="passwordEye_Clicked"/>
+                    <StackLayout Grid.Row="5" Padding="0,5">
+                        <controls:StandardEntry x:Name="ConfirmPasswordEntry"
+                                                Keyboard="Default"
+                                                Placeholder="Confirm Password"
+                                                Text="{Binding ConfirmPassword}"    
+                                                IsPassword="True"
+                                                IsReadOnly="{Binding IsBusy}">
+                            <controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsConfirmPasswordValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsConfirmPasswordValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="comfirmPasswordEyeIcon"
+                                 Grid.Row="5"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.EyeCheck},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                 Clicked="confirmPasswordEye_Clicked"/>
+                    <StackLayout Grid.Row="6" Padding="0,5">
+                        <telerikInput:RadDatePicker Placeholder="DOB"
+                                                    MaximumDate="{x:Static sys:DateTime.Today}"
+                                                    Date="{Binding DOB}"
+                                                    Style="{StaticResource RadDatePickerBaseStyle}">
+                            <telerikInput:RadDatePicker.SelectorSettings>
+                                <telerikInput:PickerPopupSelectorSettings PopupViewStyle="{StaticResource popupViewStyle}"
+                                                                          HeaderStyle="{StaticResource headerStyle}"
+                                                                          HeaderLabelText="Select DOB"
+                                                                          HeaderLabelStyle="{StaticResource headerLabelStyle}"
+                                                                          FooterStyle="{StaticResource footerStyle}"
+                                                                          AcceptButtonStyle="{StaticResource acceptButtonStyle}"
+                                                                          CancelButtonStyle="{StaticResource cancelButtonStyle}"/>
+                            </telerikInput:RadDatePicker.SelectorSettings>
+                            <telerikInput:RadDatePicker.Triggers>
+                                <DataTrigger Binding="{Binding IsDOBValidationSuccess}" Value="False" TargetType="telerikInput:RadDatePicker">
+                                    <Setter Property="Style" Value="{StaticResource RadPickerBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsDOBValidationSuccess}" Value="True" TargetType="telerikInput:RadDatePicker">
+                                    <Setter Property="Style" Value="{StaticResource RadPickerBorderStyle}"/>
+                                </DataTrigger>
+                            </telerikInput:RadDatePicker.Triggers>
+                        </telerikInput:RadDatePicker>
+                    </StackLayout>
+                    <ImageButton x:Name="calenderIcon"
+                                 Grid.Row="6"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Calendar},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                    <StackLayout Grid.Row="7" Padding="0,5" Orientation="Horizontal">
+                        <Label Text="Gender:" 
+                               Style="{StaticResource SecondaryText}" 
+                               VerticalTextAlignment="Center"
+                               VerticalOptions="Start"/>
+                        <StackLayout Orientation="Horizontal">
+                            <telerikPrimitives:RadCheckBox IsChecked="{Binding IsFemale}"
+                                                           Style="{StaticResource RadCheckBoxStyle}"
+                                                           VerticalOptions="Center"
+                                                           Margin="10,0,0,0">
+                                <telerikPrimitives:RadCheckBox.Commands>
+                                    <checkBoxComamnds:CheckBoxUserCommand Id="IsCheckedChanged" 
+                                                                          Command="{Binding IsFemaleCommand}"                                                       
+                                                                          SuppressDefaultCommand="True"/>
+                                </telerikPrimitives:RadCheckBox.Commands>
+                            </telerikPrimitives:RadCheckBox>
+                            <ImageButton x:Name="femaleIcon"
+                                        Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.HumanFemale},Color={StaticResource IconColor},Size=20}"
+                                        BackgroundColor="Transparent"/>
+                            <Label Text="Female" 
+                                   Style="{StaticResource TextColorStyle}"
+                                   VerticalTextAlignment="Center"/>
+                            <telerikPrimitives:RadCheckBox IsChecked="{Binding IsMale}"
+                                                           Style="{StaticResource RadCheckBoxStyle}"
+                                                           VerticalOptions="Center"
+                                                           Margin="20,0,0,0">
+                                <telerikPrimitives:RadCheckBox.Commands>
+                                    <checkBoxComamnds:CheckBoxUserCommand Id="IsCheckedChanged" 
+                                                                          Command="{Binding IsMaleCommand}"                                                       
+                                                                          SuppressDefaultCommand="True"/>
+                                </telerikPrimitives:RadCheckBox.Commands>
+                            </telerikPrimitives:RadCheckBox>
+                            <ImageButton x:Name="maleIcon"
+                                        Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.HumanMale},Color={StaticResource IconColor},Size=20}"
+                                        BackgroundColor="Transparent"/>
+                            <Label Text="Male" 
+                                   Style="{StaticResource TextColorStyle}"
+                                   VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Grid.Row="8"
+                                 Orientation="Horizontal"
+                                 VerticalOptions="StartAndExpand"
+                                 HorizontalOptions="StartAndExpand">
+                        <Label Text="Family Head: "
+                               VerticalTextAlignment="Center"
+                               Style="{StaticResource SecondaryText}" />
+                        <telerikPrimitives:RadCheckBox IsChecked="{Binding IsFamilyHead}"
+                                                       Style="{StaticResource RadCheckBoxStyle}"
+                                                       IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                                       VerticalOptions="Center">
+                        </telerikPrimitives:RadCheckBox>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="0,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout VerticalOptions="End" 
+                                 HorizontalOptions="Center" 
+                                 Orientation="Horizontal" 
+                                 IsVisible="{Binding IsBusy}"
+                                 Grid.Row="0"
+                                 Grid.ColumnSpan="2">
+                        <ActivityIndicator IsRunning="True" 
+                                           Color="{StaticResource Primary}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+                        <Label Text="Loading..." 
+                               VerticalTextAlignment="Center" 
+                               HorizontalOptions="Center" 
+                               Style="{StaticResource TextColorStyle}"/>
+                    </StackLayout>
+                    <Label Grid.Row="1"
+                           Grid.Column="0" 
+                           HorizontalOptions="Start" 
+                           VerticalOptions="Center" 
+                           Text="Back" 
+                           IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                           Style="{StaticResource LinkText}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackPageCommand}"
+                                                  NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Button Grid.Row="1"
+                            Grid.Column="1" 
+                            HorizontalOptions="End" 
+                            VerticalOptions="Center" 
+                            Text="Register" 
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                            Command="{Binding RegisterCommand}" 
+                            Style="{StaticResource DefaultButton}"/>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

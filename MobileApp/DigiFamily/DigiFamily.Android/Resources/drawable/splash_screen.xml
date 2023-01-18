@@ -1,0 +1,11 @@
+﻿<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <item android:drawable="@color/splashScreenBackground"/>
+
+    <item android:width="400dp"
+          android:height="350dp"
+          android:gravity="center">
+        <bitmap
+            android:src="@drawable/icon_splash"
+            android:gravity="fill"/>
+    </item>
+</layer-list> 
