@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:imageControl="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             x:Class="DigiFamily.Views.Common.MenuHeaderView">
+  <ContentView.Content>
+        <StackLayout Spacing="0">
+            <Frame BackgroundColor="{StaticResource Primary}"
+                   HeightRequest="150">
+                <StackLayout VerticalOptions="Center">
+                    <imageControl:CircleImage x:Name="ProfilePic"
+                                              Grid.Column="1"
+                                              Grid.Row="1"
+                                              BorderColor= "{StaticResource IconColor}"
+                                              BorderThickness="2"
+                                              WidthRequest="110"
+                                              HeightRequest="110"
+                                              Aspect="AspectFill"
+                                              HorizontalOptions="Center"
+                                              VerticalOptions="Center"/>
+                    <Label x:Name="UsernameLabel"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center" />
+                </StackLayout>
+            </Frame>
+            <BoxView Style="{StaticResource Separator}"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

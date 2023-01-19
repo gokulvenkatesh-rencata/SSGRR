@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns:pages="http://rotorgames.com"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                 x:Class="DigiFamily.Views.Common.ToastPage"
+                 BackgroundColor="Transparent"                
+                 Padding="35,10,35,10"
+                 BackgroundClicked="PopupPage_BackgroundClicked">
+    <pages:PopupPage.Animation>
+        <pages:MoveAnimation PositionIn="Top"
+                             PositionOut="Top"/>
+    </pages:PopupPage.Animation>
+    <StackLayout  HeightRequest="200" 
+                  HorizontalOptions="FillAndExpand" 
+                  VerticalOptions="StartAndExpand"
+                  BackgroundColor="Transparent" 
+                  Padding="0">
+        <Frame x:Name="Toast" CornerRadius="10" Padding="5" HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                <Image x:Name="ToastImage"                                                
+                       HorizontalOptions="Start"
+                       VerticalOptions="CenterAndExpand" 
+                       HeightRequest="25"
+                       WidthRequest="25"/>
+                <Label x:Name="Message"   
+                       Padding="10,0,0,0"
+                       FontFamily="Montserrat,Montserrat" 
+                       FontSize="13" 
+                       HorizontalOptions="StartAndExpand"     
+                       HorizontalTextAlignment="Start"
+                       VerticalOptions="CenterAndExpand"
+                       VerticalTextAlignment="Center"
+                       TextColor="White" 
+                       FontAttributes="Bold"
+                       LineBreakMode="WordWrap"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</pages:PopupPage>

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:helpers="clr-namespace:DigiFamily.Helpers.Utils" 
+             xmlns:controls="clr-namespace:DigiFamily.Views.Controls"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             mc:Ignorable="d"
+             x:Class="DigiFamily.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             Style="{StaticResource ContainerBackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource DefalutPadding}">
+            <StackLayout VerticalOptions="FillAndExpand" Padding="0,30,0,0">
+                <Image Source="icon_splash.png" WidthRequest="300" HeightRequest="200" VerticalOptions="Start"/>
+                <Grid RowSpacing="20" Padding="0,10,0,10" VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0" Padding="0,20">
+                        <controls:StandardEntry x:Name="UsernameEntry"
+                                                Keyboard="Email"
+                                                Placeholder="Username"
+                                                Text="{Binding Username}"    
+                                                IsReadOnly="{Binding IsBusy}">
+                            <controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsUsernameValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsUsernameValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="usernameIcon"
+                                 Grid.Row="0"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Account},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                    <StackLayout Grid.Row="1">
+                        <controls:StandardEntry x:Name="PasswordEntry"
+                                                Keyboard="Default"
+                                                Placeholder="Password"
+                                                Text="{Binding Password}"    
+                                                IsPassword="True"
+                                                IsReadOnly="{Binding IsBusy}">
+                            <controls:StandardEntry.Triggers>
+                                <DataTrigger Binding="{Binding IsPasswordValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsPasswordValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                </DataTrigger>
+                            </controls:StandardEntry.Triggers>
+                        </controls:StandardEntry>
+                    </StackLayout>
+                    <ImageButton x:Name="passwordEye"
+                                 Grid.Row="1"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Eye},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                 Clicked="passwordEye_Clicked"/>
+                    <Grid Grid.Row="2" Padding="0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Row="0"
+                                     Grid.Column="0"
+                                     Orientation="Horizontal"
+                                     VerticalOptions="StartAndExpand"
+                                     HorizontalOptions="StartAndExpand">
+                            <Label Text="Remember Me "
+                                   VerticalTextAlignment="Center"
+                                   Style="{StaticResource TextColorStyle}"/>
+                            <telerikPrimitives:RadCheckBox IsChecked="{Binding IsRememberMe}"
+                                                           Style="{StaticResource RadCheckBoxStyle}"
+                                                           IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                                           VerticalOptions="Center">
+                            </telerikPrimitives:RadCheckBox>
+                        </StackLayout>
+                        <Label Grid.Column="1" 
+                               Padding="10,0,0,0"
+                               HorizontalOptions="End" 
+                               VerticalOptions="Center" 
+                               Text="Forget Password?" 
+                               IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                               Style="{StaticResource LinkTextPrimary}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"
+                                                      NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+            <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="0,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout VerticalOptions="End" 
+                                 HorizontalOptions="Center" 
+                                 Orientation="Horizontal" 
+                                 IsVisible="{Binding IsBusy}"
+                                 Grid.Row="0"
+                                 Grid.ColumnSpan="2">
+                        <ActivityIndicator IsRunning="True" 
+                                           Color="{StaticResource Primary}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+                        <Label Text="Loading..." 
+                               VerticalTextAlignment="Center" 
+                               HorizontalOptions="Center" 
+                               Style="{StaticResource TextColorStyle}"/>
+                    </StackLayout>
+                    <Label Grid.Row="1"
+                           Grid.Column="0" 
+                           HorizontalOptions="Start" 
+                           VerticalOptions="Center" 
+                           Text="Register" 
+                           IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                           Style="{StaticResource LinkText}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RegisterCommand}"
+                                                  NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Button Grid.Row="1"
+                            Grid.Column="1" 
+                            HorizontalOptions="End" 
+                            VerticalOptions="Center" 
+                            Text="Login" 
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                            Command="{Binding LoginCommand}" 
+                            Style="{StaticResource DefaultButton}"/>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

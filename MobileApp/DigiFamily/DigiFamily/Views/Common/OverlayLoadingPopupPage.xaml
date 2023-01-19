@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="DigiFamily.Views.Common.OverlayLoadingPopupPage"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 Opacity=".10"
+                 CloseWhenBackgroundIsClicked="False">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Orientation="Horizontal">
+            <ActivityIndicator IsRunning="True" Color="{StaticResource Primary}" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label Text="Loading..." VerticalTextAlignment="Center"  HorizontalOptions="Center" Style="{StaticResource TextColorStyle}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

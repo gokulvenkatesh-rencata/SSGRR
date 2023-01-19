@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+             xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:controls="clr-namespace:DigiFamily.Views.Controls"
+             x:Class="DigiFamily.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!--Colors-->
+            <Color x:Key="Primary">#E69023</Color>
+            <Color x:Key="Danger">Red</Color>
+            <Color x:Key="IconColor">Gray</Color>
+
+            <!--Light Colors-->
+            <Color x:Key="BackgroundLight">#FDFDFD</Color>
+            <Color x:Key="PlaceholderLight">Gray</Color>
+            <Color x:Key="TextLight">Black</Color>
+
+            <!--Dark Colors-->
+            <Color x:Key="BackgroundDark">#21222d</Color>
+            <Color x:Key="PlaceholderDark">LightGray</Color>
+            <Color x:Key="TextDark">White</Color>
+
+            <!--Styles-->
+            <Style x:Key="ShellBackgroundColor" TargetType="Shell">
+                <Setter Property="FlyoutBackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}"/>
+            </Style>
+            <Style x:Key="ContainerBackgroundColor" TargetType="ContentPage">
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}"/>
+            </Style>
+
+            <Style x:Key="PopupStyle" TargetType="xct:Popup">
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            </Style>
+
+            <Style x:Key="TextColorStyle" TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+            </Style>
+
+            <Style x:Key="PrimaryText" TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                <Setter Property="FontSize" Value="Title" />
+            </Style>
+
+            <Style x:Key="SecondaryText" TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style x:Key="LinkText" TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextDecorations" Value="Underline"/>
+            </Style>
+
+            <Style x:Key="LinkTextPrimary" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextDecorations" Value="Underline"/>
+            </Style>
+
+            <Style x:Key="DefalutPadding" TargetType="StackLayout">
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="Spacing" Value="10"/>
+            </Style>
+
+            <Style x:Key="InputBaseStyle" TargetType="controls:StandardEntry">
+                <Setter Property="Padding" Value="10,0,0,0"/>
+                <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}"/>
+                <Setter Property="PlaceholderColor" 
+                        Value="{AppThemeBinding Dark={StaticResource PlaceholderDark}, Light={StaticResource PlaceholderLight}}"/>
+                <Setter Property="HeightRequest" Value="45"/>
+            </Style>
+            <Style x:Key="EntryBorderStyle" 
+                   TargetType="controls:StandardEntry"
+                   BasedOn="{StaticResource InputBaseStyle}">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+                <Setter Property="CornerRadius" Value="20"/>
+            </Style>
+            <Style x:Key="EntryBorderStyleDanger"
+                   TargetType="controls:StandardEntry"
+                   BasedOn="{StaticResource InputBaseStyle}">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderColor" Value="{StaticResource Danger}"/>
+                <Setter Property="CornerRadius" Value="20"/>
+            </Style>
+
+            <Style x:Key="InputIconStyle" TargetType="ImageButton">
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+
+            <Style x:Key="SwitchStyle" TargetType="Switch">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="On">
+                                <VisualState.Setters>
+                                    <Setter Property="ThumbColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="OnColor" Value="Gold" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Off">
+                                <VisualState.Setters>
+                                    <Setter Property="ThumbColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="DefaultButton" TargetType="Button">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="BorderRadius" Value="20"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Separator" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="Color" Value="Gray" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+            <Style TargetType="telerikDataControls:RadSpinner" x:Key="spinnerStyle">
+                <Setter Property="ItemStyle">
+                    <Setter.Value>
+                        <Style TargetType="telerikDataControls:SpinnerItemView">
+                            <Setter Property="TextColor" 
+                                    Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="SelectedItemStyle">
+                    <Setter.Value>
+                        <Style TargetType="telerikDataControls:SpinnerItemView">
+                            <Setter Property="TextColor" 
+                                    Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                            <Setter Property="FontAttributes" Value="Bold"/>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="spinnerHeaderStyle">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="telerikPrimitives:RadBorder" x:Key="selectionHighlightStyle">
+                <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="0,6,0,6"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Label" x:Key="placeholderLabelStyle">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource PlaceholderDark}, Light={StaticResource PlaceholderLight}}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+            <Style TargetType="Label" x:Key="displayLabelStyle">
+                <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+            <Style TargetType="telerikInput:PickerPopupContentView" x:Key="popupViewStyle">
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}"/>
+                <Setter Property="WidthRequest" Value="300"/>
+            </Style>
+            <Style TargetType="telerikInput:PickerPopupHeaderView" x:Key="headerStyle">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+                <Setter Property="HeightRequest" Value="60"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style TargetType="Label" x:Key="headerLabelStyle">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="Title"/>
+            </Style>
+            <Style TargetType="telerikInput:PickerPopupFooterView" x:Key="footerStyle">
+                <Setter Property="BackgroundColor" Value="Gray"/>
+            </Style>
+            <Style TargetType="Button" x:Key="acceptButtonStyle">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="Text" Value="OK"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+            </Style>
+            <Style TargetType="Button" x:Key="cancelButtonStyle">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="Text" Value="Close"/>
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+            </Style>
+
+            <Style x:Key="RadDatePickerBaseStyle" TargetType="telerikInput:RadDatePicker">
+                <Setter Property="SpinnerHeaderStyle" Value="{StaticResource spinnerHeaderStyle}"/>
+                <Setter Property="SpinnerStyle" Value="{StaticResource spinnerStyle}"/>
+                <Setter Property="SelectionHighlightStyle" Value="{StaticResource selectionHighlightStyle}"/>
+                <Setter Property="DisplayLabelStyle" Value="{StaticResource displayLabelStyle}"/>
+                <Setter Property="PlaceholderLabelStyle" Value="{StaticResource placeholderLabelStyle}"/>
+                <Setter Property="SpinnerFormat" Value="yyyy/MMM/dd"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="DisplayStringFormat" Value="yyyy/MMM/dd"/>
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}"/>
+            </Style>
+            <Style x:Key="RadPickerBorderStyle" TargetType="telerikInput:RadDatePicker" BasedOn="{StaticResource RadDatePickerBaseStyle}">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+                <Setter Property="CornerRadius" Value="20"/>
+            </Style>
+            <Style x:Key="RadPickerBorderStyleDanger" TargetType="telerikInput:RadDatePicker">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderColor" Value="{StaticResource Danger}"/>
+                <Setter Property="CornerRadius" Value="20"/>
+            </Style>
+
+            <Style x:Key="RadCheckBoxStyle" TargetType="telerikPrimitives:RadCheckBox">
+                <Setter Property="CheckedColor" Value="{StaticResource Primary}"/>
+                <Setter Property="CheckedSymbolColor" 
+                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                <Setter Property="UncheckedColor" Value="Gray"/>
+            </Style>
+            
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
