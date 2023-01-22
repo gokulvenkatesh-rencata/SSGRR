@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" xmlns:imageControl="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin" xmlns:controls="clr-namespace:DigiFamily.Views.Controls" xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input" xmlns:checkBoxComamnds="clr-namespace:Telerik.XamarinForms.Primitives.CheckBox.Commands;assembly=Telerik.XamarinForms.Primitives"
              x:Class="DigiFamily.Views.UserDetailsPage"
+             xmlns:helpers="clr-namespace:DigiFamily.Helpers.Utils"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls" xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls" xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
              mc:Ignorable="d"
              Title="{Binding Title}"
              Style="{StaticResource ContainerBackgroundColor}">
@@ -14,8 +16,620 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Style="{StaticResource DefalutPadding}">
+        <StackLayout Padding="10">
             <ScrollView VerticalOptions="StartAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand">
+                    <telerikPrimitives:RadExpander BorderColor="{StaticResource Primary}"
+                                                   BorderThickness="1"
+                                                   IsExpanded="True"
+                                                   Margin="0">
+                        <telerikPrimitives:RadExpander.Header>
+                            <telerikPrimitives:ExpanderHeader IndicatorText="&#x203A;"                   
+                                                              IndicatorColor="White"
+                                                              IndicatorFontSize="30"
+                                                              IndicatorLocation="End"
+                                                              BackgroundColor="{StaticResource Primary}"
+                                                              IndicatorAnimationDuration="1000"
+                                                              BorderColor="{StaticResource Primary}"
+                                                              BorderThickness="1"
+                                                              CornerRadius="10">
+                                <StackLayout Orientation="Horizontal" Padding="0,2">
+                                    <Label Text="Personal Details"
+                                           VerticalTextAlignment="Center"
+                                           Style="{StaticResource HeaderText}" />
+                                </StackLayout>
+                            </telerikPrimitives:ExpanderHeader>
+                        </telerikPrimitives:RadExpander.Header>
+                        <telerikPrimitives:RadExpander.Content>
+                            <Grid RowSpacing="2" Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <imageControl:CircleImage Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Account},Color={StaticResource IconColor},Size=40}"
+                                                          BorderColor= "{DynamicResource IconColor}"
+                                                          BorderThickness="2"
+                                                          WidthRequest="80"
+                                                          HeightRequest="80"
+                                                          Aspect="AspectFill"
+                                                          HorizontalOptions="Center"
+                                                          VerticalOptions="Center"
+                                                          Grid.Row="0"
+                                                          x:Name="ProfileImg">
+                                    <imageControl:CircleImage.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              Tapped="ProfilePic_Tapped"/>
+                                    </imageControl:CircleImage.GestureRecognizers>
+                                </imageControl:CircleImage>
+                                <StackLayout Grid.Row="1" Padding="0,5">
+                                    <controls:StandardEntry x:Name="UsernameEntry"
+                                                Keyboard="Email"
+                                                Placeholder="Username/Email"
+                                                Text="{Binding Email}"    
+                                                IsReadOnly="{Binding IsBusy}">
+                                        <controls:StandardEntry.Triggers>
+                                            <DataTrigger Binding="{Binding IsEmailValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsEmailValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                            </DataTrigger>
+                                        </controls:StandardEntry.Triggers>
+                                    </controls:StandardEntry>
+                                </StackLayout>
+                                <ImageButton x:Name="usernameIcon"
+                                 Grid.Row="1"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Email},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                                <StackLayout Grid.Row="2" Padding="0,5">
+                                    <controls:StandardEntry x:Name="FirstnameEntry"
+                                                Keyboard="Text"
+                                                Placeholder="Firstname"
+                                                Text="{Binding Firstname}"    
+                                                IsReadOnly="{Binding IsBusy}">
+                                        <controls:StandardEntry.Triggers>
+                                            <DataTrigger Binding="{Binding IsFirstnameValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsFirstnameValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                            </DataTrigger>
+                                        </controls:StandardEntry.Triggers>
+                                    </controls:StandardEntry>
+                                </StackLayout>
+                                <ImageButton x:Name="firstnameIcon"
+                                 Grid.Row="2"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.AccountArrowLeft},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                                <StackLayout Grid.Row="3" Padding="0,5">
+                                    <controls:StandardEntry x:Name="LastnameEntry"
+                                                Keyboard="Text"
+                                                Placeholder="Lastname"
+                                                Text="{Binding Lastname}"    
+                                                IsReadOnly="{Binding IsBusy}"
+                                                Style="{StaticResource EntryBorderStyle}">
+                                    </controls:StandardEntry>
+                                </StackLayout>
+                                <ImageButton x:Name="lastameIcon"
+                                 Grid.Row="3"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.AccountArrowRight},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                                <StackLayout Grid.Row="4" Padding="0,5">
+                                    <controls:StandardEntry x:Name="PhoneEntry"
+                                                Keyboard="Telephone"
+                                                Placeholder="Phone #"
+                                                Text="{Binding Phone}"
+                                                MaxLength="11"
+                                                IsReadOnly="{Binding IsBusy}">
+                                        <controls:StandardEntry.Triggers>
+                                            <DataTrigger Binding="{Binding IsPhoneValidationSuccess}" Value="False" TargetType="controls:StandardEntry">
+                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsPhoneValidationSuccess}" Value="True" TargetType="controls:StandardEntry">
+                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                            </DataTrigger>
+                                        </controls:StandardEntry.Triggers>
+                                        <controls:StandardEntry.Behaviors>
+                                            <xct:MaskedBehavior Mask="AAAAA AAAAA" 
+                                                    UnMaskedCharacter="A" />
+                                        </controls:StandardEntry.Behaviors>
+                                    </controls:StandardEntry>
+                                </StackLayout>
+                                <ImageButton x:Name="phoneIcon"
+                                 Grid.Row="4"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Phone},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                                <StackLayout Grid.Row="5" Padding="0,5">
+                                    <telerikInput:RadDatePicker Placeholder="DOB"
+                                                    MaximumDate="{x:Static sys:DateTime.Today}"
+                                                    Date="{Binding DOB}"
+                                                    Style="{StaticResource RadDatePickerBaseStyle}">
+                                        <telerikInput:RadDatePicker.SelectorSettings>
+                                            <telerikInput:PickerPopupSelectorSettings PopupViewStyle="{StaticResource popupViewStyle}"
+                                                                          HeaderStyle="{StaticResource headerStyle}"
+                                                                          HeaderLabelText="Select DOB"
+                                                                          HeaderLabelStyle="{StaticResource headerLabelStyle}"
+                                                                          FooterStyle="{StaticResource footerStyle}"
+                                                                          AcceptButtonStyle="{StaticResource acceptButtonStyle}"
+                                                                          CancelButtonStyle="{StaticResource cancelButtonStyle}"/>
+                                        </telerikInput:RadDatePicker.SelectorSettings>
+                                        <telerikInput:RadDatePicker.Triggers>
+                                            <DataTrigger Binding="{Binding IsDOBValidationSuccess}" Value="False" TargetType="telerikInput:RadDatePicker">
+                                                <Setter Property="Style" Value="{StaticResource RadPickerBorderStyleDanger}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsDOBValidationSuccess}" Value="True" TargetType="telerikInput:RadDatePicker">
+                                                <Setter Property="Style" Value="{StaticResource RadPickerBorderStyle}"/>
+                                            </DataTrigger>
+                                        </telerikInput:RadDatePicker.Triggers>
+                                    </telerikInput:RadDatePicker>
+                                </StackLayout>
+                                <ImageButton x:Name="calenderIcon"
+                                 Grid.Row="5"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Calendar},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                                <StackLayout Grid.Row="6" Padding="0,5" Orientation="Horizontal">
+                                    <Label Text="Gender:" 
+                               Style="{StaticResource SecondaryText}" 
+                               VerticalTextAlignment="Center"
+                               VerticalOptions="Start"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <telerikPrimitives:RadCheckBox IsChecked="{Binding IsFemale}"
+                                                           Style="{StaticResource RadCheckBoxStyle}"
+                                                           VerticalOptions="Center"
+                                                           Margin="10,0,0,0">
+                                            <telerikPrimitives:RadCheckBox.Commands>
+                                                <checkBoxComamnds:CheckBoxUserCommand Id="IsCheckedChanged" 
+                                                                          Command="{Binding IsFemaleCommand}"                                                       
+                                                                          SuppressDefaultCommand="True"/>
+                                            </telerikPrimitives:RadCheckBox.Commands>
+                                        </telerikPrimitives:RadCheckBox>
+                                        <ImageButton x:Name="femaleIcon"
+                                        Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.HumanFemale},Color={StaticResource IconColor},Size=20}"
+                                        BackgroundColor="Transparent"/>
+                                        <Label Text="Female" 
+                                   Style="{StaticResource TextColorStyle}"
+                                   VerticalTextAlignment="Center"/>
+                                        <telerikPrimitives:RadCheckBox IsChecked="{Binding IsMale}"
+                                                           Style="{StaticResource RadCheckBoxStyle}"
+                                                           VerticalOptions="Center"
+                                                           Margin="20,0,0,0">
+                                            <telerikPrimitives:RadCheckBox.Commands>
+                                                <checkBoxComamnds:CheckBoxUserCommand Id="IsCheckedChanged" 
+                                                                          Command="{Binding IsMaleCommand}"                                                       
+                                                                          SuppressDefaultCommand="True"/>
+                                            </telerikPrimitives:RadCheckBox.Commands>
+                                        </telerikPrimitives:RadCheckBox>
+                                        <ImageButton x:Name="maleIcon"
+                                        Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.HumanMale},Color={StaticResource IconColor},Size=20}"
+                                        BackgroundColor="Transparent"/>
+                                        <Label Text="Male" 
+                                   Style="{StaticResource TextColorStyle}"
+                                   VerticalTextAlignment="Center"/>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Grid.Row="7"
+                                 Orientation="Horizontal"
+                                 VerticalOptions="StartAndExpand"
+                                 HorizontalOptions="StartAndExpand">
+                                    <Label Text="Family Head: "
+                               VerticalTextAlignment="Center"
+                               Style="{StaticResource SecondaryText}" />
+                                    <telerikPrimitives:RadCheckBox IsChecked="{Binding IsFamilyHead}"
+                                                       Style="{StaticResource RadCheckBoxStyle}"
+                                                       IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                                       VerticalOptions="Center">
+                                    </telerikPrimitives:RadCheckBox>
+                                </StackLayout>
+                            </Grid>
+                        </telerikPrimitives:RadExpander.Content>
+                    </telerikPrimitives:RadExpander>
+                    <telerikPrimitives:RadExpander BorderColor="{StaticResource Primary}"
+                                                   BorderThickness="1"
+                                                   Margin="0,5,0,0"
+                                                   x:Name="certificateExpander">
+                        <telerikPrimitives:RadExpander.Header>
+                            <telerikPrimitives:ExpanderHeader IndicatorText="&#x203A;"                   
+                                                              IndicatorColor="White"
+                                                              IndicatorFontSize="30"
+                                                              IndicatorLocation="End"
+                                                              BackgroundColor="{StaticResource Primary}"
+                                                              IndicatorAnimationDuration="1000"
+                                                              BorderColor="{StaticResource Primary}"
+                                                              BorderThickness="1"
+                                                              CornerRadius="10">
+                                <StackLayout Orientation="Horizontal" Padding="0,2">
+                                    <Label Text="Certificates"
+                                           VerticalTextAlignment="Center"
+                                           Style="{StaticResource HeaderText}" 
+                                           HorizontalOptions="StartAndExpand"/>
+                                    <ImageButton Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.FilePlus},Color=White,Size=30}" 
+                                                 BackgroundColor="Transparent"
+                                                 HorizontalOptions="End"
+                                                 Clicked="AddCertificateMainClicked"/>
+                                </StackLayout>
+                            </telerikPrimitives:ExpanderHeader>
+                        </telerikPrimitives:RadExpander.Header>
+                        <telerikPrimitives:RadExpander.Content>
+                            <telerikDataControls:RadListView Margin="0,5,0,0" 
+                                                             ItemsSource="{Binding Certificates}"
+                                                             x:Name="CertificateList">
+                                <telerikDataControls:RadListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <telerikListView:ListViewTemplateCell>
+                                            <telerikListView:ListViewTemplateCell.View>
+                                                <StackLayout Orientation="Horizontal"
+                                                             Padding="10,5"
+                                                             HorizontalOptions="FillAndExpand">
+                                                    <telerikInput:RadListPicker Placeholder="Certificate Type" 
+                                                                                    ItemsSource="{Binding CertificateTypes}"
+                                                                                    x:Name="listPicker"
+                                                                                    DisplayLabelStyle="{StaticResource displayLabelStyle}"
+                                                                                    PlaceholderLabelStyle="{StaticResource placeholderLabelStyle}"
+                                                                                    Style="{StaticResource RadListPickerStyle}"
+                                                                                    HorizontalOptions="FillAndExpand">
+                                                        <telerikInput:RadListPicker.SelectorSettings>
+                                                            <telerikInput:PickerPopupSelectorSettings AcceptCommand="{Binding Accept}"
+                                                                                                          AcceptCommandParameter="{Binding SelectedItem, Source={x:Reference listPicker}}"
+                                                                                                          CancelCommand="{Binding Cancel}"
+                                                                                                          CancelCommandParameter="{Binding SelectedItem, Source={x:Reference listPicker}}" 
+                                                                                                          PopupViewStyle="{StaticResource popupViewStyle}"
+                                                                                                          HeaderStyle="{StaticResource headerStyle}"
+                                                                                                          HeaderLabelText="Certificate type"
+                                                                                                          HeaderLabelStyle="{StaticResource headerLabelStyle}"
+                                                                                                          FooterStyle="{StaticResource footerStyle}"
+                                                                                                          AcceptButtonStyle="{StaticResource acceptButtonStyle}"
+                                                                                                          CancelButtonStyle="{StaticResource cancelButtonStyle}"/>
+                                                        </telerikInput:RadListPicker.SelectorSettings>
+                                                    </telerikInput:RadListPicker>
+                                                    <controls:StandardEntry Keyboard="Text"
+                                                                                    Placeholder="Name"
+                                                                                    Text="{Binding CertificateName}"    
+                                                                                    IsReadOnly="{Binding IsBusy}"
+                                                                                    IsVisible="{Binding IsNameVisible}"
+                                                                            WidthRequest="200">
+                                                        <controls:StandardEntry.Triggers>
+                                                            <DataTrigger Binding="{Binding IsValid}" Value="False" TargetType="controls:StandardEntry">
+                                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsValid}" Value="True" TargetType="controls:StandardEntry">
+                                                                <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                                            </DataTrigger>
+                                                        </controls:StandardEntry.Triggers>
+                                                    </controls:StandardEntry>
+                                                    <Button Text="Add" 
+                                                                HorizontalOptions="End"   
+                                                                Clicked="AddCertificateClicked"
+                                                                IsVisible="{Binding IsAddVisible}"
+                                                                Style="{StaticResource DefaultButton}"
+                                                                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"/>
+                                                    <Button Text="View" 
+                                                                HorizontalOptions="End"
+                                                                Clicked="ViewCertificateClicked"
+                                                                IsVisible="{Binding IsViewVisible}"
+                                                                Style="{StaticResource DefaultButton}"
+                                                                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"/>
+                                                </StackLayout>
+                                            </telerikListView:ListViewTemplateCell.View>
+                                        </telerikListView:ListViewTemplateCell>
+                                    </DataTemplate>
+                                </telerikDataControls:RadListView.ItemTemplate>
+                                <telerikDataControls:RadListView.ItemSwipeContentTemplate>
+                                    <DataTemplate>
+                                        <Grid Grid.ColumnSpacing="0"
+                                          Grid.RowSpacing="0"
+                                          Padding="0"
+                                          Margin="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="40"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0"
+                                              BackgroundColor="#FF1744"
+                                              Grid.ColumnSpacing="0"
+                                              Grid.RowSpacing="0"
+                                              Padding="0"
+                                              Margin="0">
+                                                <telerikInput:RadButton BorderRadius="0"
+                                                                    HorizontalOptions="FillAndExpand"
+                                                                    VerticalOptions="FillAndExpand"
+                                                                    BackgroundColor="Transparent"
+                                                                    Clicked="CertificateDelete_TappedAsync" />
+                                                <Image InputTransparent="True"
+                                                   Aspect="AspectFit"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                            <On Platform="iOS,Android">listVewDeleteBtn.png</On>
+                                                        </OnPlatform>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Grid>
+                                            <Grid Grid.Column="2"
+                                              BackgroundColor="#FF1744"
+                                              Grid.ColumnSpacing="0"
+                                              Grid.RowSpacing="0"
+                                              Padding="0"
+                                              Margin="0">
+                                                <telerikInput:RadButton BorderRadius="0"
+                                                                    HorizontalOptions="FillAndExpand"
+                                                                    VerticalOptions="FillAndExpand"
+                                                                    BackgroundColor="Transparent"
+                                                                    Clicked="CertificateDelete_TappedAsync" />
+                                                <Image InputTransparent="True"
+                                                   Aspect="AspectFit"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                            <On Platform="iOS,Android">listVewDeleteBtn.png</On>
+                                                        </OnPlatform>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </telerikDataControls:RadListView.ItemSwipeContentTemplate>
+                            </telerikDataControls:RadListView>
+                        </telerikPrimitives:RadExpander.Content>
+                    </telerikPrimitives:RadExpander>
+                    <telerikPrimitives:RadExpander BorderColor="{StaticResource Primary}"
+                                                   BorderThickness="1"
+                                                   Margin="0,5,0,0"
+                                                   x:Name="emailExpander">
+                        <telerikPrimitives:RadExpander.Header>
+                            <telerikPrimitives:ExpanderHeader IndicatorText="&#x203A;"                   
+                                                              IndicatorColor="White"
+                                                              IndicatorFontSize="30"
+                                                              IndicatorLocation="End"
+                                                              BackgroundColor="{StaticResource Primary}"
+                                                              IndicatorAnimationDuration="1000"
+                                                              BorderColor="{StaticResource Primary}"
+                                                              BorderThickness="1"
+                                                              CornerRadius="10">
+                                <StackLayout Orientation="Horizontal" Padding="0,2">
+                                    <Label Text="Emails"
+                                           VerticalTextAlignment="Center"
+                                           Style="{StaticResource HeaderText}" 
+                                           HorizontalOptions="StartAndExpand"/>
+                                    <ImageButton Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.EmailPlus},Color=White,Size=30}" 
+                                                 BackgroundColor="Transparent"
+                                                 HorizontalOptions="End"
+                                                 Clicked="AddEmailClicked"/>
+                                </StackLayout>
+                            </telerikPrimitives:ExpanderHeader>
+                        </telerikPrimitives:RadExpander.Header>
+                        <telerikPrimitives:RadExpander.Content>
+                            <telerikDataControls:RadListView Margin="0,5,0,0" 
+                                                             ItemsSource="{Binding Emails}"
+                                                             x:Name="EmailList">
+                                <telerikDataControls:RadListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <telerikListView:ListViewTemplateCell>
+                                            <telerikListView:ListViewTemplateCell.View>
+                                                <Grid RowSpacing="2" Padding="10,5" VerticalOptions="StartAndExpand">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <StackLayout Grid.Row="0" Padding="0">
+                                                        <controls:StandardEntry Keyboard="Email"
+                                                Placeholder="Email"
+                                                Text="{Binding Data}"    
+                                                IsReadOnly="{Binding IsBusy}">
+                                                            <controls:StandardEntry.Triggers>
+                                                                <DataTrigger Binding="{Binding IsValid}" Value="False" TargetType="controls:StandardEntry">
+                                                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsValid}" Value="True" TargetType="controls:StandardEntry">
+                                                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                                                </DataTrigger>
+                                                            </controls:StandardEntry.Triggers>
+                                                        </controls:StandardEntry>
+                                                    </StackLayout>
+                                                    <ImageButton Grid.Row="0"
+                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Email},Color={StaticResource IconColor},Size=20}"
+                                 Style="{StaticResource InputIconStyle}"/>
+                                                </Grid>
+                                            </telerikListView:ListViewTemplateCell.View>
+                                        </telerikListView:ListViewTemplateCell>
+                                    </DataTemplate>
+                                </telerikDataControls:RadListView.ItemTemplate>
+                                <telerikDataControls:RadListView.ItemSwipeContentTemplate>
+                                    <DataTemplate>
+                                        <Grid Grid.ColumnSpacing="0"
+                                          Grid.RowSpacing="0"
+                                          Padding="0"
+                                          Margin="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="40"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0"
+                                              BackgroundColor="#FF1744"
+                                              Grid.ColumnSpacing="0"
+                                              Grid.RowSpacing="0"
+                                              Padding="0"
+                                              Margin="0">
+                                                <telerikInput:RadButton BorderRadius="0"
+                                                                    HorizontalOptions="FillAndExpand"
+                                                                    VerticalOptions="FillAndExpand"
+                                                                    BackgroundColor="Transparent"
+                                                                    Clicked="EmailDelete_TappedAsync" />
+                                                <Image InputTransparent="True"
+                                                   Aspect="AspectFit"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                            <On Platform="iOS,Android">listVewDeleteBtn.png</On>
+                                                        </OnPlatform>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Grid>
+                                            <Grid Grid.Column="2"
+                                              BackgroundColor="#FF1744"
+                                              Grid.ColumnSpacing="0"
+                                              Grid.RowSpacing="0"
+                                              Padding="0"
+                                              Margin="0">
+                                                <telerikInput:RadButton BorderRadius="0"
+                                                                    HorizontalOptions="FillAndExpand"
+                                                                    VerticalOptions="FillAndExpand"
+                                                                    BackgroundColor="Transparent"
+                                                                    Clicked="EmailDelete_TappedAsync" />
+                                                <Image InputTransparent="True"
+                                                   Aspect="AspectFit"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                            <On Platform="iOS,Android">listVewDeleteBtn.png</On>
+                                                        </OnPlatform>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </telerikDataControls:RadListView.ItemSwipeContentTemplate>
+                            </telerikDataControls:RadListView>
+                        </telerikPrimitives:RadExpander.Content>
+                    </telerikPrimitives:RadExpander>
+                    <telerikPrimitives:RadExpander BorderColor="{StaticResource Primary}"
+                                                   BorderThickness="1"
+                                                   Margin="0,5,0,0"
+                                                   x:Name="phoneExpander">
+                        <telerikPrimitives:RadExpander.Header>
+                            <telerikPrimitives:ExpanderHeader IndicatorText="&#x203A;"                   
+                                                              IndicatorColor="White"
+                                                              IndicatorFontSize="30"
+                                                              IndicatorLocation="End"
+                                                              BackgroundColor="{StaticResource Primary}"
+                                                              IndicatorAnimationDuration="1000"
+                                                              BorderColor="{StaticResource Primary}"
+                                                              BorderThickness="1"
+                                                              CornerRadius="10">
+                                <StackLayout Orientation="Horizontal" Padding="0,2">
+                                    <Label Text="Phones"
+                                           VerticalTextAlignment="Center"
+                                           Style="{StaticResource HeaderText}" 
+                                           HorizontalOptions="StartAndExpand"/>
+                                    <ImageButton Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.PhonePlus},Color=White,Size=30}" 
+                                                 BackgroundColor="Transparent"
+                                                 HorizontalOptions="End"
+                                                 Clicked="AddPhoneClicked" />
+                                </StackLayout>
+                            </telerikPrimitives:ExpanderHeader>
+                        </telerikPrimitives:RadExpander.Header>
+                        <telerikPrimitives:RadExpander.Content>
+                            <telerikDataControls:RadListView Margin="0, 5, 0, 0" 
+                                                             ItemsSource="{Binding Phones}"
+                                                             x:Name="PhoneList">
+                                <telerikDataControls:RadListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <telerikListView:ListViewTemplateCell>
+                                            <telerikListView:ListViewTemplateCell.View>
+                                                <Grid RowSpacing="2" Padding="10,5" VerticalOptions="StartAndExpand">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <StackLayout Grid.Row="0" Padding="0">
+                                                        <controls:StandardEntry Keyboard="Telephone"
+                                                Placeholder="Phone #"
+                                                Text="{Binding Data}"
+                                                MaxLength="11"
+                                                IsReadOnly="{Binding IsBusy}">
+                                                            <controls:StandardEntry.Triggers>
+                                                                <DataTrigger Binding="{Binding IsValid}" Value="False" TargetType="controls:StandardEntry">
+                                                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyleDanger}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsValid}" Value="True" TargetType="controls:StandardEntry">
+                                                                    <Setter Property="Style" Value="{StaticResource EntryBorderStyle}"/>
+                                                                </DataTrigger>
+                                                            </controls:StandardEntry.Triggers>
+                                                            <controls:StandardEntry.Behaviors>
+                                                                <xct:MaskedBehavior Mask="AAAAA AAAAA" 
+                                                    UnMaskedCharacter="A" />
+                                                            </controls:StandardEntry.Behaviors>
+                                                        </controls:StandardEntry>
+                                                    </StackLayout>
+                                                    <ImageButton Grid.Row="0"
+                                                                 Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Phone},Color={StaticResource IconColor},Size=20}"
+                                                                 Style="{StaticResource InputIconStyle}"/>
+                                                </Grid>
+                                            </telerikListView:ListViewTemplateCell.View>
+                                        </telerikListView:ListViewTemplateCell>
+                                    </DataTemplate>
+                                </telerikDataControls:RadListView.ItemTemplate>
+                                <telerikDataControls:RadListView.ItemSwipeContentTemplate>
+                                    <DataTemplate>
+                                        <Grid Grid.ColumnSpacing="0"
+                                          Grid.RowSpacing="0"
+                                          Padding="0"
+                                          Margin="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="40"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0"
+                                              BackgroundColor="#FF1744"
+                                              Grid.ColumnSpacing="0"
+                                              Grid.RowSpacing="0"
+                                              Padding="0"
+                                              Margin="0">
+                                                <telerikInput:RadButton BorderRadius="0"
+                                                                    HorizontalOptions="FillAndExpand"
+                                                                    VerticalOptions="FillAndExpand"
+                                                                    BackgroundColor="Transparent"
+                                                                    Clicked="PhoneDelete_TappedAsync" />
+                                                <Image InputTransparent="True"
+                                                   Aspect="AspectFit"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                            <On Platform="iOS,Android">listVewDeleteBtn.png</On>
+                                                        </OnPlatform>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Grid>
+                                            <Grid Grid.Column="2"
+                                              BackgroundColor="#FF1744"
+                                              Grid.ColumnSpacing="0"
+                                              Grid.RowSpacing="0"
+                                              Padding="0"
+                                              Margin="0">
+                                                <telerikInput:RadButton BorderRadius="0"
+                                                                    HorizontalOptions="FillAndExpand"
+                                                                    VerticalOptions="FillAndExpand"
+                                                                    BackgroundColor="Transparent"
+                                                                    Clicked="PhoneDelete_TappedAsync" />
+                                                <Image InputTransparent="True"
+                                                   Aspect="AspectFit"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                            <On Platform="iOS,Android">listVewDeleteBtn.png</On>
+                                                        </OnPlatform>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </telerikDataControls:RadListView.ItemSwipeContentTemplate>
+                            </telerikDataControls:RadListView>
+                        </telerikPrimitives:RadExpander.Content>
+                    </telerikPrimitives:RadExpander>
+                </StackLayout>
             </ScrollView>
             <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="0,5">
                 <Grid>

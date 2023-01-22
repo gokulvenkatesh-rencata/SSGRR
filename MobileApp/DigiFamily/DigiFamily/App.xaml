@@ -50,6 +50,12 @@
                         Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
             </Style>
 
+            <Style x:Key="HeaderText" TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="White"/>
+                <Setter Property="FontSize" Value="Title" />
+            </Style>
+            
             <Style x:Key="PrimaryText" TargetType="Label">
                 <Setter Property="TextColor" 
                         Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
@@ -200,7 +206,7 @@
                 <Setter Property="TextColor" 
                         Value="{AppThemeBinding Dark={StaticResource PlaceholderDark}, Light={StaticResource PlaceholderLight}}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
                 <Setter Property="HeightRequest" Value="40"/>
             </Style>
             <Style TargetType="Label" x:Key="displayLabelStyle">
@@ -273,11 +279,22 @@
             <Style x:Key="RadCheckBoxStyle" TargetType="telerikPrimitives:RadCheckBox">
                 <Setter Property="CheckedColor" Value="{StaticResource Primary}"/>
                 <Setter Property="CheckedSymbolColor" 
-                        Value="{AppThemeBinding Dark={StaticResource TextDark}, Light={StaticResource TextLight}}"/>
+                        Value="White"/>
                 <Setter Property="UncheckedColor" Value="Gray"/>
             </Style>
-            
 
+            <Style x:Key="RadListPickerStyle" TargetType="telerikInput:RadListPicker">
+                <Setter Property="SelectionHighlightStyle" Value="{StaticResource selectionHighlightStyle}"/>
+                <Setter Property="DisplayLabelStyle" Value="{StaticResource displayLabelStyle}"/>
+                <Setter Property="PlaceholderLabelStyle" Value="{StaticResource placeholderLabelStyle}"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}" />
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+                <Setter Property="CornerRadius" Value="20"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

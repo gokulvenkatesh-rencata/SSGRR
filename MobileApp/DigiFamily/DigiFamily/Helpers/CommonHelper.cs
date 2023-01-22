@@ -176,6 +176,7 @@ namespace DigiFamily.Helpers
         {
             try
             {
+                Preferences.Remove("IsDarkTheme");
                 SecureStorage.Remove("oauth_token");
                 SecureStorage.Remove("token_expires");
                 await Shell.Current.GoToAsync("//LoginPage");
@@ -199,9 +200,10 @@ namespace DigiFamily.Helpers
             switch (appTheme)
             {
                 case OSAppTheme.Light:
-                    string darkTheme = Preferences.Get("OSAppTheme", Enum.GetName(typeof(OSAppTheme), OSAppTheme.Dark));
+                    string darkTheme = Preferences.Get("OSAppTheme", Enum.GetName(typeof(OSAppTheme), OSAppTheme.Light));
                     Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), darkTheme);
                     Application.Current.Resources["IconColor"] = Color.Gray;
+                    Preferences.Set("IsDarkTheme", false);
                     break;
                 case OSAppTheme.Unspecified:
                 case OSAppTheme.Dark:
@@ -209,6 +211,7 @@ namespace DigiFamily.Helpers
                     string lightTheme = Preferences.Get("OSAppTheme", Enum.GetName(typeof(OSAppTheme), OSAppTheme.Dark));
                     Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), lightTheme);
                     Application.Current.Resources["IconColor"] = Color.LightGray;
+                    Preferences.Set("IsDarkTheme", true);
                     break;
             }
         }
@@ -222,6 +225,25 @@ namespace DigiFamily.Helpers
             catch
             {
                 return default;
+            }
+        }
+
+        public static async Task<ImageSource> GetImageSourceAsync(FileResult fileResult)
+        {
+            if (fileResult != null)
+            {
+                Stream stream = await fileResult.OpenReadAsync();
+                return ImageSource.FromStream(() => stream);
+            }
+            else
+            {
+                return new FontImageSource
+                {
+                    FontFamily = "FontAwesome",
+                    Glyph = IconFont.Account,
+                    Color = CommonHelper.GetResource<Color>("IconColor"),
+                    Size = 40
+                };
             }
         }
     }

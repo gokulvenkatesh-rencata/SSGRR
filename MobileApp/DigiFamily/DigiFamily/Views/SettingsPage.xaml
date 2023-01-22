@@ -3,12 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" xmlns:checkBoxComamnds="clr-namespace:Telerik.XamarinForms.Primitives.CheckBox.Commands;assembly=Telerik.XamarinForms.Primitives"
              x:Class="DigiFamily.Views.SettingsPage"
              mc:Ignorable="d"
              Title="{Binding Title}"
              Style="{StaticResource ContainerBackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Style="{StaticResource DefalutPadding}">
+            <Grid RowSpacing="0" Padding="0" VerticalOptions="StartAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0"
+                                 Orientation="Horizontal"
+                                 VerticalOptions="StartAndExpand"
+                                 HorizontalOptions="StartAndExpand">
+                    <Label Text="Dark Theme: "
+                               VerticalTextAlignment="Center"
+                               Style="{StaticResource SecondaryText}" />
+                    <telerikPrimitives:RadCheckBox IsChecked="{Binding IsDarkTheme}"
+                                                   Style="{StaticResource RadCheckBoxStyle}"
+                                                   IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                                                   VerticalOptions="Center">
+                        <telerikPrimitives:RadCheckBox.Commands>
+                            <checkBoxComamnds:CheckBoxUserCommand Id="IsCheckedChanged" 
+                                                                  Command="{Binding IsDarkThemeCommand}"                                                       
+                                                                  SuppressDefaultCommand="True"/>
+                        </telerikPrimitives:RadCheckBox.Commands>
+                    </telerikPrimitives:RadCheckBox>
+                </StackLayout>
+            </Grid>
+            <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="0,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout VerticalOptions="End" 
+                                 HorizontalOptions="Center" 
+                                 Orientation="Horizontal" 
+                                 IsVisible="{Binding IsBusy}"
+                                 Grid.Row="0"
+                                 Grid.ColumnSpan="2">
+                        <ActivityIndicator IsRunning="True" 
+                                           Color="{StaticResource Primary}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+                        <Label Text="Loading..." 
+                               VerticalTextAlignment="Center" 
+                               HorizontalOptions="Center" 
+                               Style="{StaticResource TextColorStyle}"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
