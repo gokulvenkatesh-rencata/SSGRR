@@ -14,7 +14,7 @@ namespace DigiFamily
     {
         public static ToastPage ToastPage = null;
         public static AlertPopupPage AlertPopup = null;
-        public static ForgotPasswordPopupPage ForgotPasswordPopup=null;
+        public static ForgotPasswordPopupPage ForgotPasswordPopup = null;
         public App()
         {
             try
@@ -50,7 +50,11 @@ namespace DigiFamily
 
         private void InitDependencies()
         {
-            CommonHelper.SetTheme(OSAppTheme.Dark);
+            bool isDarkTheme = Preferences.Get("IsDarkTheme", true);
+            if (isDarkTheme)
+                CommonHelper.SetTheme(OSAppTheme.Dark);
+            else
+                CommonHelper.SetTheme(OSAppTheme.Light);
             DependencyService.Register<HttpClientService>();
             DependencyService.Register<AccountService>();
         }

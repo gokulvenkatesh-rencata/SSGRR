@@ -16,7 +16,7 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    LineBreakMode="WordWrap"
-                   Style="{StaticResource TextColorStyle}" />
+                   TextColor="White" />
         </StackLayout>
         <StackLayout Padding="10,0,10,0" 
                      VerticalOptions="CenterAndExpand"

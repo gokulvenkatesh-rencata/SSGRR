@@ -25,7 +25,7 @@ namespace DigiFamily.Views.Common
             string username = await SecureStorage.GetAsync("oauth_username");
             if (!string.IsNullOrEmpty(username))
             {
-                UsernameLabel.Text = username;
+                UsernameLabel.Text = "Sasindran Thavaselvam";
                 //ProfilePic.Source = new UriImageSource().Uri = new System.Uri("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTxv6KzSo-T89N0xfuVNpO--yIlXba83JFrxUcJ0SuocPbbjpK");
                 ProfilePic.Source = new FontImageSource
                 {

@@ -158,5 +158,13 @@
       <Name>DigiFamily</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\listVewDeleteBtn%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\listVewDeleteBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\listVewDeleteBtn%402x.png" />
+  </ItemGroup>
 </Project>

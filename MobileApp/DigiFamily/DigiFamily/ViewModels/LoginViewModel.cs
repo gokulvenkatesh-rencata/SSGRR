@@ -88,7 +88,7 @@ namespace DigiFamily.ViewModels
                 if (IsBusy)
                     return;
                 IsBusy = true;
-                await Shell.Current.GoToAsync($"Registration");
+                await Shell.Current.GoToAsync($"RegistrationPage");
             }
             catch (Exception ex)
             {

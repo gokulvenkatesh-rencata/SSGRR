@@ -14,6 +14,12 @@
         Female
     }
 
+    public enum FileSource
+    {
+        Camera,
+        Gallery
+    }
+
     public enum AlertType
     {
         Notify,
@@ -24,6 +30,16 @@
     {
         Add,
         Update
+    }
+
+    public enum CertificateType
+    {
+        Aadhaar,
+        Birth,
+        DL,
+        PAN,
+        Passport,
+        Others
     }
     public class ToastContent
     {
