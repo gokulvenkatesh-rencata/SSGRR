@@ -6,11 +6,11 @@ namespace DigiFamily.Views
 {
     public partial class AboutPage : ContentPage
     {
-        private ForgotPasswordViewModel ViewModel;
+        private AboutViewModel ViewModel;
         public AboutPage()
         {
             InitializeComponent();
-            BindingContext = ViewModel = new ForgotPasswordViewModel();
+            BindingContext = ViewModel = new AboutViewModel();
         }
     }
 }

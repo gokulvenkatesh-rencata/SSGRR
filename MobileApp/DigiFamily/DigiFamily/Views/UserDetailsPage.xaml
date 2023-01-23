@@ -50,7 +50,6 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <imageControl:CircleImage Source="{FontImage FontFamily=FontAwesome, Glyph={x:Static helpers:IconFont.Account},Color={StaticResource IconColor},Size=40}"
                                                           BorderColor= "{DynamicResource IconColor}"
@@ -212,19 +211,6 @@
                                    Style="{StaticResource TextColorStyle}"
                                    VerticalTextAlignment="Center"/>
                                     </StackLayout>
-                                </StackLayout>
-                                <StackLayout Grid.Row="7"
-                                 Orientation="Horizontal"
-                                 VerticalOptions="StartAndExpand"
-                                 HorizontalOptions="StartAndExpand">
-                                    <Label Text="Family Head: "
-                               VerticalTextAlignment="Center"
-                               Style="{StaticResource SecondaryText}" />
-                                    <telerikPrimitives:RadCheckBox IsChecked="{Binding IsFamilyHead}"
-                                                       Style="{StaticResource RadCheckBoxStyle}"
-                                                       IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
-                                                       VerticalOptions="Center">
-                                    </telerikPrimitives:RadCheckBox>
                                 </StackLayout>
                             </Grid>
                         </telerikPrimitives:RadExpander.Content>
@@ -635,7 +621,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
